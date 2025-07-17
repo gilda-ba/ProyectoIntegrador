@@ -1,4 +1,6 @@
-package techlab.spring.productos;
+package techlab.spring.entity;
+
+import java.util.function.DoubleToIntFunction;
 
 public class Producto {
     private static int SIGUIENTE_ID = 1;
@@ -53,5 +55,29 @@ public class Producto {
     public void crearId(){
         this.ID = SIGUIENTE_ID;
         SIGUIENTE_ID++;
+    }
+
+    public void mostrarInfo(){
+        System.out.println("Datos:");
+        System.out.println("ID: " + this.ID);
+        System.out.println("Nombre: " + this.nombre);
+        System.out.println("Precio: " + this.precio);
+        System.out.println("Stock: " + this.stock);
+    }
+
+    public boolean mismoNombre(String buscqueda){
+        String nombreMinuscula = this.nombre.toLowerCase();
+        return nombreMinuscula.contains(buscqueda.toLowerCase());
+    }
+    public boolean mismoId(long id){
+        return this.ID == id;
+    }
+
+    public void disminuirStock(int cantidad) {
+        this.stock -= cantidad;
+    }
+
+    public int getCantComprar() {
+        return cantComprar;
     }
 }

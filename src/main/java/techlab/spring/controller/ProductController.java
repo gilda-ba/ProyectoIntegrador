@@ -1,7 +1,8 @@
 package techlab.spring.controller;
 
 import org.springframework.web.bind.annotation.*;
-import techlab.spring.productos.Producto;
+import techlab.spring.entity.Producto;
+import techlab.spring.entity.Pedido;
 
 import java.util.ArrayList;
 
@@ -21,19 +22,27 @@ public class ProductController {
         return agregarProducto(producto);
     }
 
-    @GetMapping("/list")//Seguir completando
-    public ArrayList<Producto> listarProductos(){
-        return this.productos;
+    @GetMapping("/list")
+    public void listarProductos(ArrayList<Producto> productos) {
+        if (productos.isEmpty()){
+        System.out.println("No existe el producto");
+        }else {
+            for (Producto producto : productos) {
+                producto.mostrarInfo();
+            }
+        }
     }
 
     @GetMapping("/find/{productId}")
-    public String buscarProductoPorId(@PathVariable String productId){
-        try {
-            int id = Integer.parseInt(productId);
-            return "buscando producto: " + id;
-        }catch (NumberFormatException e){
-            return "buscando nombre: "  + productId;
+    public Producto buscarProductoPorId(@PathVariable Long productId){
+        Producto product = null;
+        for (Producto producto : productos) {
+            if(producto.mismoId(productId)){
+                product = producto;
+            }
         }
+
+        return product;
     }
 
     public String agregarProducto(Producto producto){
@@ -41,13 +50,27 @@ public class ProductController {
         return "Se agregó correctamente el producto: " + producto.getId();
     }
 
-    public void eliminarProducto(String productId){
-
+    @DeleteMapping("/{productId}")
+    public Producto eliminarProducto(@PathVariable Long productId){
+        Producto producto = this.buscarProductoPorId(productId);
+        if(producto != null){
+            this.productos.remove(producto);
+        }
+        return producto;
     }
 
     public void agregarProdEjemplo(){
         this.productos.add(new Producto("monitor", 1000, 10));
         this.productos.add(new Producto("celular", 7000, 15));
         this.productos.add(new Producto("camara", 4000, 5));
+    }
+
+    @PutMapping("/{id}")
+    public Producto editarPrecioProducto(@PathVariable Long id,@RequestParam double nuevoPrecio){
+        Producto producto = this.buscarProductoPorId(id);
+        if(producto != null){
+            producto.setPrecio(nuevoPrecio);
+        }
+        return producto;
     }
 }
