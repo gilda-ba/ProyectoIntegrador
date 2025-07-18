@@ -3,6 +3,7 @@ package techlab.spring.controller;
 import org.springframework.web.bind.annotation.*;
 import techlab.spring.entity.Producto;
 import techlab.spring.entity.Pedido;
+import techlab.spring.service.ProductService;
 
 import java.util.ArrayList;
 
@@ -11,8 +12,10 @@ import java.util.ArrayList;
 public class ProductController {
 
     private ArrayList<Producto> productos;
+    private ProductService service;
 
-    public  ProductController() {
+    public  ProductController(ProductService service) {
+        this.service = service;
         this.productos = new ArrayList<>();
         agregarProdEjemplo();
     }
@@ -23,14 +26,8 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public void listarProductos(ArrayList<Producto> productos) {
-        if (productos.isEmpty()){
-        System.out.println("No existe el producto");
-        }else {
-            for (Producto producto : productos) {
-                producto.mostrarInfo();
-            }
-        }
+    public ArrayList<Producto> listarProductos() {
+       return this.service.listarProductos();
     }
 
     @GetMapping("/find/{productId}")

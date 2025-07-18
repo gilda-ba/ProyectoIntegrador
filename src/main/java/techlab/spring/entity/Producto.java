@@ -1,7 +1,10 @@
 package techlab.spring.entity;
 
-import java.util.function.DoubleToIntFunction;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Producto {
     private static int SIGUIENTE_ID = 1;
     private int ID;
@@ -26,30 +29,6 @@ public class Producto {
     // Getters y setters
     public int getId() {
         return ID;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
     }
 
     public void crearId(){
@@ -77,7 +56,4 @@ public class Producto {
         this.stock -= cantidad;
     }
 
-    public int getCantComprar() {
-        return cantComprar;
-    }
 }
