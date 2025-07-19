@@ -19,7 +19,7 @@ public class Pedido {
         return this.productos;
     }
 
-    public void agregarPedido(Producto producto) {
+    public void agregarProductoAPedido(Producto producto) {
         if(producto != null) this.productos.add(producto);
     }
 

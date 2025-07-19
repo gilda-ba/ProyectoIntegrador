@@ -1,13 +1,21 @@
 package techlab.spring.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
+
 public class Producto {
-    private static int SIGUIENTE_ID = 1;
-    private int ID;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Long ID;
+
     private String nombre;
     private double precio;
     private int stock;
@@ -21,8 +29,7 @@ public class Producto {
         setNombre(name);
         setPrecio(price);
         setStock(stock);
-        this.ID = SIGUIENTE_ID;
-        SIGUIENTE_ID++;
+        this.crearId();
         this.cantComprar = 1;
     }
 

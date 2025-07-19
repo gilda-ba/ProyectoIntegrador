@@ -1,6 +1,9 @@
 package techlab.spring.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import techlab.spring.DTO.ProductResponseDTO;
 import techlab.spring.entity.Producto;
 import techlab.spring.entity.Pedido;
 import techlab.spring.service.ProductService;
@@ -11,18 +14,15 @@ import java.util.ArrayList;
 @RequestMapping("/producto")
 public class ProductController {
 
-    private ArrayList<Producto> productos;
     private ProductService service;
 
     public  ProductController(ProductService service) {
         this.service = service;
-        this.productos = new ArrayList<>();
-        agregarProdEjemplo();
     }
 
     @PostMapping("/")
-    public String crearProducto(@RequestBody Producto producto) {
-        return agregarProducto(producto);
+    public ResponseEntity<ProductResponseDTO> crearProducto(@RequestBody Producto producto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.agregarProducto(producto));
     }
 
     @GetMapping("/list")
@@ -54,12 +54,6 @@ public class ProductController {
             this.productos.remove(producto);
         }
         return producto;
-    }
-
-    public void agregarProdEjemplo(){
-        this.productos.add(new Producto("monitor", 1000, 10));
-        this.productos.add(new Producto("celular", 7000, 15));
-        this.productos.add(new Producto("camara", 4000, 5));
     }
 
     @PutMapping("/{id}")
