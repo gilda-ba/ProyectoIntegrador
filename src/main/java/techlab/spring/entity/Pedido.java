@@ -27,7 +27,7 @@ public class Pedido {
         double total = 0;
 
         for (Producto lp : productos) {
-            total += lp.getPrecio() * lp.getCantComprar();
+            total += lp.getPrecio() * lp.getCantAComprar();
         }
         return total;
     }

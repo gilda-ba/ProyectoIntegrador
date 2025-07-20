@@ -19,29 +19,17 @@ public class Producto {
     private String nombre;
     private double precio;
     private int stock;
-    private int cantComprar;
+    private int cantAComprar;
 
-    public Producto() {
-        crearId();
-    }
+    public Producto() {}
 
     public Producto(String name, double price, int stock) {
         setNombre(name);
         setPrecio(price);
         setStock(stock);
-        this.crearId();
-        this.cantComprar = 1;
+        this.cantAComprar = 0;
     }
 
-    // Getters y setters
-    public int getId() {
-        return ID;
-    }
-
-    public void crearId(){
-        this.ID = SIGUIENTE_ID;
-        SIGUIENTE_ID++;
-    }
 
     public void mostrarInfo(){
         System.out.println("Datos:");
@@ -55,6 +43,7 @@ public class Producto {
         String nombreMinuscula = this.nombre.toLowerCase();
         return nombreMinuscula.contains(buscqueda.toLowerCase());
     }
+
     public boolean mismoId(long id){
         return this.ID == id;
     }

@@ -15,22 +15,18 @@ public class ProductRepository {
     }
 
     public ArrayList<Producto> getTodosProductos(){
-        return productos;
+        return this.productos;
     }
 
     public String agregarProducto(Producto producto) {
         this.productos.add(producto);
-        return "Producto agregado con id: " + producto.getId();
+        return "Producto agregado con id: " + producto.getID();
     }
 
     public void agregarProdEjemplo(){
-        this.productos.add(new Producto("monitor", 1000, 10));
-        this.productos.add(new Producto("celular", 7000, 15));
-        this.productos.add(new Producto("camara", 4000, 5));
-    }
-
-    public ArrayList<Producto> listarProductos(){
-        return this.productos;
+        this.productos.add(new Producto("Kuromi peluche", 1000, 10));
+        this.productos.add(new Producto("Naruto llavero", 7000, 15));
+        this.productos.add(new Producto("Sasuke mochila", 4000, 5));
     }
 
     public ArrayList<Producto> buscarProducto(String busquedaProducto) {
@@ -54,12 +50,12 @@ public class ProductRepository {
         return productEncontrado;
     }
 
-    public Producto eliminarProductoPorId(Producto producto){
-        Producto productoEliminado = buscarId(producto.getId());
+    public Producto eliminarProducto(Producto producto){
+        Producto productoEliminado = buscarId(producto.getID());
 
             if (productoEliminado != null) {
                 this.productos.remove(producto);
-                System.out.println("Producto eliminado con id: " + producto.getId());
+                System.out.println("Producto eliminado con id: " + producto.getID());
             }
 
         return productoEliminado;
