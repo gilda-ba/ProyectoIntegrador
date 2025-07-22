@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Producto {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
 
     private String nombre;
     private double precio;
@@ -33,7 +33,7 @@ public class Producto {
 
     public void mostrarInfo(){
         System.out.println("Datos:");
-        System.out.println("ID: " + this.ID);
+        System.out.println("ID: " + this.id);
         System.out.println("Nombre: " + this.nombre);
         System.out.println("Precio: " + this.precio);
         System.out.println("Stock: " + this.stock);
@@ -45,7 +45,7 @@ public class Producto {
     }
 
     public boolean mismoId(long id){
-        return this.ID == id;
+        return this.id == id;
     }
 
     public void disminuirStock(int cantidad) {

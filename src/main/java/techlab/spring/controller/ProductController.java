@@ -22,17 +22,28 @@ public class ProductController {
 
     @PostMapping("/")
     public ResponseEntity<ProductResponseDTO> crearProducto(@RequestBody Producto producto) {
+        try{
+
         return ResponseEntity.status(HttpStatus.CREATED).body(this.service.agregarProducto(producto));
+        }catch (ProductNoFoundException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ProductResponseDTO());
+        }
     }
 
     @GetMapping("/list")
-    public ArrayList<Producto> listarProductos() {
-       return this.service.listarProductos();
+    public ResponseEntity<ArrayList<Producto>> listarProductos() {
+       ArrayList<Producto> productos =  this.service.listarProductos();
+       return ResponseEntity.status(HttpStatus.OK).body(productos);
     }
 
     @GetMapping("/{productId}")
-    public Producto buscarProductoPorId(@PathVariable Long productId){
-        return this.service.buscarProductoPorId(productId);
+    public ResponseEntity<Producto> buscarProductoPorId(@PathVariable Long productId){
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(this.service.buscarProductoPorId(productId));
+        }catch (ProductNoFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @GetMapping("/find")
@@ -48,13 +59,24 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Producto editarPrecio(@PathVariable Long id, @RequestParam Double precioNuevo){
-        return this.service.editarProducto(id, precioNuevo);
+    public ResponseEntity<Producto> editarPrecio(@PathVariable Long id, @RequestParam Double precioNuevo){
+    try {
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.editarProducto(id, precioNuevo ));
+    }catch (ProductNoFoundException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
     }
 
     @DeleteMapping("/{productId}")
-    public Producto eliminarProducto(@PathVariable Long productId){
-        return this.service.borrarProducto(productId);
+    public ResponseEntity<ProductResponseDTO> eliminarProducto(@PathVariable Long productId){
+        try {
+            this.service.borrarProducto(productId);
+            ProductResponseDTO productoResponseDTO = new ProductResponseDTO();
+            productoResponseDTO.setMensaje("Producto eliminado");
+            return  ResponseEntity.status(HttpStatus.OK).body(productoResponseDTO);
+        }catch (ProductNoFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 }

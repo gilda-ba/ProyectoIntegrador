@@ -20,7 +20,7 @@ public class ProductRepository {
 
     public String agregarProducto(Producto producto) {
         this.productos.add(producto);
-        return "Producto agregado con id: " + producto.getID();
+        return "Producto agregado con id: " + producto.getId();
     }
 
     public void agregarProdEjemplo(){
@@ -51,11 +51,11 @@ public class ProductRepository {
     }
 
     public Producto eliminarProducto(Producto producto){
-        Producto productoEliminado = buscarId(producto.getID());
+        Producto productoEliminado = buscarId(producto.getId());
 
             if (productoEliminado != null) {
                 this.productos.remove(producto);
-                System.out.println("Producto eliminado con id: " + producto.getID());
+                System.out.println("Producto eliminado con id: " + producto.getId());
             }
 
         return productoEliminado;
